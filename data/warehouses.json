@@ -1,0 +1,10 @@
+[
+    {
+      "warehouseId": "WH-IST-01",
+      "name": "Istanbul Main Warehouse"
+    },
+    {
+      "warehouseId": "WH-ANK-01",
+      "name": "Ankara Warehouse"
+    }
+  ]

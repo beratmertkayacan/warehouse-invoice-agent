@@ -23,7 +23,12 @@ def find_missing_fields(fields: InvoiceFields) -> list[str]:
     return missing
 
 
-def validate_invoice(fields: InvoiceFields) -> ValidationResult:
+def validate_invoice(
+    fields: InvoiceFields, tool_calls: list[str] | None = None
+) -> ValidationResult:
+    if tool_calls is None:
+        tool_calls = []
+
     missing = find_missing_fields(fields)
     if missing:
         issues = [f"Missing required field: {name}" for name in missing]
@@ -32,6 +37,7 @@ def validate_invoice(fields: InvoiceFields) -> ValidationResult:
     if fields.quantity <= 0:
         return ValidationResult(passed=False, issues=["Quantity must be greater than zero"])
 
+    tool_calls.append("get_order")
     order = get_order(fields.order_number)
     if order is None:
         return ValidationResult(passed=False, issues=[f"Unknown order: {fields.order_number}"])
@@ -56,6 +62,7 @@ def validate_invoice(fields: InvoiceFields) -> ValidationResult:
     if get_warehouse(fields.warehouse_id) is None:
         issues.append(f"Unknown warehouse: {fields.warehouse_id}")
     else:
+        tool_calls.append("get_stock")
         stock = get_stock(fields.warehouse_id, fields.product_id)
         available = stock["availableQuantity"] if stock else 0
         if fields.quantity > available:

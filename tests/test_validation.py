@@ -122,3 +122,27 @@ def test_fields_use_camel_case_in_json():
 
     assert fields.order_number == "ORD-2001"
     assert fields.model_dump(exclude_none=True) == {"orderNumber": "ORD-2001", "quantity": 10}
+
+
+def test_lookups_are_recorded_for_a_valid_invoice():
+    used_tools = []
+
+    validate_invoice(valid_fields(), used_tools)
+
+    assert used_tools == ["get_order", "get_stock"]
+
+
+def test_no_lookups_when_fields_are_missing():
+    used_tools = []
+
+    validate_invoice(valid_fields(order_number=None), used_tools)
+
+    assert used_tools == []
+
+
+def test_unknown_order_stops_after_order_lookup():
+    used_tools = []
+
+    validate_invoice(valid_fields(order_number="ORD-9999"), used_tools)
+
+    assert used_tools == ["get_order"]

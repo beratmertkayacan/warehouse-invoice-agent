@@ -3,7 +3,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from openai import OpenAIError
 
 from app.agent import FieldExtractor, run_agent
@@ -12,9 +13,11 @@ from app.config import load_settings
 from app.llm import create_extractor
 from app.models import AgentRequest, AgentResponse, Approval, ShipmentRelease
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+APP_DIR = Path(__file__).resolve().parent
+load_dotenv(APP_DIR.parent / ".env")
 
 app = FastAPI(title="Warehouse Outbound Invoice Agent", version="0.1.0")
+app.mount("/static", StaticFiles(directory=APP_DIR / "static"), name="static")
 store = ApprovalStore()
 
 
@@ -38,6 +41,11 @@ async def handle_llm_error(request: Request, error: OpenAIError) -> JSONResponse
     return JSONResponse(
         status_code=502, content={"error": "The language model service is not available"}
     )
+
+
+@app.get("/", include_in_schema=False)
+def playground() -> FileResponse:
+    return FileResponse(APP_DIR / "static" / "index.html")
 
 
 @app.get("/health")

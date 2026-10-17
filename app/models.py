@@ -1,9 +1,10 @@
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
 ApprovalStatus = Literal["pending", "approved", "rejected"]
+AgentStatus = Literal["manual_review", "awaiting_approval"]
 
 
 class CamelModel(BaseModel):
@@ -43,3 +44,28 @@ class ShipmentRelease(CamelModel):
     status: Literal["released"]
     shipment_id: str
     request_id: str
+
+
+class AgentRequest(CamelModel):
+    session_id: str | None = None
+    message: str = Field(min_length=1, max_length=5000)
+
+
+class ToolCall(CamelModel):
+    name: str
+
+
+class ApprovalInfo(CamelModel):
+    id: str
+    status: ApprovalStatus
+
+
+class AgentResponse(CamelModel):
+    session_id: str
+    answer: str
+    status: AgentStatus
+    extracted_fields: InvoiceFields
+    validation: ValidationResult
+    tool_calls: list[ToolCall]
+    approval: ApprovalInfo | None = None
+    request_id: str | None = None

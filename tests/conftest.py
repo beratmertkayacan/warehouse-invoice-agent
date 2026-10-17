@@ -1,6 +1,8 @@
 import pytest
 
+from app.approvals import ApprovalStore
 from app.models import InvoiceFields
+from tests.fakes import FakeExtractor
 
 
 @pytest.fixture
@@ -14,3 +16,13 @@ def valid_invoice() -> InvoiceFields:
         quantity=10,
         destination="Ankara",
     )
+
+
+@pytest.fixture
+def extractor() -> FakeExtractor:
+    return FakeExtractor()
+
+
+@pytest.fixture
+def store() -> ApprovalStore:
+    return ApprovalStore()

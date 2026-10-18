@@ -3,6 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from openai import OpenAIError
@@ -41,6 +42,16 @@ async def handle_llm_error(request: Request, error: OpenAIError) -> JSONResponse
     return JSONResponse(
         status_code=502, content={"error": "The language model service is not available"}
     )
+
+
+@app.exception_handler(RequestValidationError)
+async def handle_invalid_request(request: Request, error: RequestValidationError) -> JSONResponse:
+    problems = []
+    for item in error.errors():
+        field = ".".join(str(part) for part in item["loc"][1:]) or "body"
+        problems.append(f"{field}: {item['msg']}")
+    message = "Invalid request: " + "; ".join(problems)
+    return JSONResponse(status_code=422, content={"error": message})
 
 
 @app.get("/", include_in_schema=False)

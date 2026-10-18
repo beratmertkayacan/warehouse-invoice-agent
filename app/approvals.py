@@ -76,4 +76,5 @@ class ApprovalStore:
             request_id=request_id,
         )
         self._shipments[request_id] = shipment
+        approval.shipment_id = shipment.shipment_id
         return shipment

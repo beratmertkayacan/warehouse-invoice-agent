@@ -9,3 +9,7 @@ select = ["E", "F", "I"]
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "--cov=app --cov-report=term-missing"
+
+[tool.coverage.report]
+fail_under = 90
+exclude_also = ["if __name__ == .__main__.:"]

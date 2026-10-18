@@ -39,6 +39,7 @@ def test_chat_returns_the_response_shape_from_the_task():
     ]
     assert body["approval"]["status"] == "pending"
     assert body["requestId"].startswith("REQ-")
+    assert body["approval"]["summary"].startswith("Ship 10 x Industrial Sensor")
 
 
 def test_case_9_fake_approval_cannot_release_goods():

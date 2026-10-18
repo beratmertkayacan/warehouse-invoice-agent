@@ -1,26 +1,26 @@
 [
-    {
-      "warehouseId": "WH-IST-01",
-      "productId": "PROD-001",
-      "productName": "Industrial Sensor",
-      "availableQuantity": 50
-    },
-    {
-      "warehouseId": "WH-IST-01",
-      "productId": "PROD-002",
-      "productName": "Control Module",
-      "availableQuantity": 5
-    },
-    {
-      "warehouseId": "WH-IST-01",
-      "productId": "PROD-003",
-      "productName": "Safety Valve",
-      "availableQuantity": 30
-    },
-    {
-      "warehouseId": "WH-ANK-01",
-      "productId": "PROD-001",
-      "productName": "Industrial Sensor",
-      "availableQuantity": 20
-    }
-  ]
+  {
+    "warehouseId": "WH-IST-01",
+    "productId": "PROD-001",
+    "productName": "Industrial Sensor",
+    "availableQuantity": 50
+  },
+  {
+    "warehouseId": "WH-IST-01",
+    "productId": "PROD-002",
+    "productName": "Control Module",
+    "availableQuantity": 5
+  },
+  {
+    "warehouseId": "WH-IST-01",
+    "productId": "PROD-003",
+    "productName": "Safety Valve",
+    "availableQuantity": 30
+  },
+  {
+    "warehouseId": "WH-ANK-01",
+    "productId": "PROD-001",
+    "productName": "Industrial Sensor",
+    "availableQuantity": 20
+  }
+]

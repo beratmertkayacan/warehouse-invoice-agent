@@ -54,3 +54,13 @@ def test_approving_twice_returns_409(valid_invoice):
     response = client.post(f"/approvals/{approval.id}/approve")
 
     assert response.status_code == 409
+
+
+def test_released_approval_shows_shipment_id(valid_invoice):
+    approval = store.create(valid_invoice)
+    client.post(f"/approvals/{approval.id}/approve")
+    shipment = client.post(f"/shipments/{approval.request_id}/release").json()
+
+    body = client.get(f"/approvals/{approval.id}").json()
+
+    assert body["shipmentId"] == shipment["shipmentId"]

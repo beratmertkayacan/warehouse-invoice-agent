@@ -49,6 +49,6 @@ def run_agent(
         extracted_fields=fields,
         validation=validation,
         tool_calls=[ToolCall(name=name) for name in used_tools],
-        approval=ApprovalInfo(id=approval.id, status=approval.status),
+        approval=ApprovalInfo(id=approval.id, status=approval.status, summary=approval.summary),
         request_id=approval.request_id,
     )

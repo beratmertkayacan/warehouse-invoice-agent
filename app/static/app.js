@@ -61,6 +61,7 @@ function showResult(data) {
   fillList("issues", data.validation.issues.length ? data.validation.issues : ["No issues"]);
   fillList("tools", data.toolCalls.map((call) => call.name));
   showApproval(data.approval ? data.approval.status : null);
+  setText("summary", data.approval ? data.approval.summary : "");
   setText("release-result", "");
 }
 
@@ -95,6 +96,7 @@ async function release() {
   try {
     const shipment = await callApi("POST", `/shipments/${current.requestId}/release`);
     setText("release-result", `Released. Shipment ID: ${shipment.shipmentId}`);
+    element("release").hidden = true;
   } catch (error) {
     showError(error.message);
   }

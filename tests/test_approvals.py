@@ -110,3 +110,22 @@ def test_release_happens_only_once(valid_invoice):
 def test_release_unknown_request_raises_not_found():
     with pytest.raises(NotFoundError):
         ApprovalStore().release("REQ-999")
+
+
+def test_approved_request_cannot_be_rejected(valid_invoice):
+    store = ApprovalStore()
+    approval = store.create(valid_invoice)
+    store.approve(approval.id)
+
+    with pytest.raises(InvalidStateError):
+        store.reject(approval.id)
+
+
+def test_release_is_recorded_on_the_approval(valid_invoice):
+    store = ApprovalStore()
+    approval = store.create(valid_invoice)
+    store.approve(approval.id)
+
+    shipment = store.release(approval.request_id)
+
+    assert store.get(approval.id).shipment_id == shipment.shipment_id

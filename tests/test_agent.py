@@ -27,6 +27,7 @@ def test_case_1_valid_invoice_waits_for_approval(extractor, store):
     assert tool_names(response) == ["get_order", "get_stock", "submit_for_human_approval"]
     assert response.approval.status == "pending"
     assert response.request_id == "REQ-001"
+    assert response.approval.summary.startswith("Ship 10 x Industrial Sensor (PROD-001)")
 
 
 def test_case_2_missing_order_number(extractor, store):

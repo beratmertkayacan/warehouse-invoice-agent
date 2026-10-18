@@ -38,6 +38,7 @@ class Approval(CamelModel):
     status: ApprovalStatus
     summary: str
     invoice: InvoiceFields
+    shipment_id: str | None = None
 
 
 class ShipmentRelease(CamelModel):
@@ -58,6 +59,7 @@ class ToolCall(CamelModel):
 class ApprovalInfo(CamelModel):
     id: str
     status: ApprovalStatus
+    summary: str
 
 
 class AgentResponse(CamelModel):

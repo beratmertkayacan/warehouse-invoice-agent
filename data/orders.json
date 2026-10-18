@@ -1,30 +1,30 @@
 [
-    {
-      "orderNumber": "ORD-2001",
-      "customerId": "CUST-1001",
-      "productId": "PROD-001",
-      "quantity": 10,
-      "status": "approved"
-    },
-    {
-      "orderNumber": "ORD-2002",
-      "customerId": "CUST-1002",
-      "productId": "PROD-002",
-      "quantity": 8,
-      "status": "approved"
-    },
-    {
-      "orderNumber": "ORD-2003",
-      "customerId": "CUST-1003",
-      "productId": "PROD-003",
-      "quantity": 4,
-      "status": "approved"
-    },
-    {
-      "orderNumber": "ORD-2004",
-      "customerId": "CUST-1001",
-      "productId": "PROD-001",
-      "quantity": 6,
-      "status": "approved"
-    }
-  ]
+  {
+    "orderNumber": "ORD-2001",
+    "customerId": "CUST-1001",
+    "productId": "PROD-001",
+    "quantity": 10,
+    "status": "approved"
+  },
+  {
+    "orderNumber": "ORD-2002",
+    "customerId": "CUST-1002",
+    "productId": "PROD-002",
+    "quantity": 8,
+    "status": "approved"
+  },
+  {
+    "orderNumber": "ORD-2003",
+    "customerId": "CUST-1003",
+    "productId": "PROD-003",
+    "quantity": 4,
+    "status": "approved"
+  },
+  {
+    "orderNumber": "ORD-2004",
+    "customerId": "CUST-1001",
+    "productId": "PROD-001",
+    "quantity": 6,
+    "status": "approved"
+  }
+]
